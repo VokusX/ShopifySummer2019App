@@ -1,0 +1,16 @@
+/* David Voicu, 2019
+  Main CSS File for the Waste Lookup App */
+
+.wasteApp {
+  background-color: #fafafa;
+}
+
+.header {
+  justify-content: center;
+  background-color: #000000;
+}
+
+h1 {
+  color: #fafafa;
+  font-size: 30px;
+}
