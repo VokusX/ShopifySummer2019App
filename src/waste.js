@@ -3,11 +3,10 @@
 
 import React, { Component } from "react";
 import "./waste.css";
-
-//import Font Awesome so that we can get the search icon and the favourites icon
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faSearch } from "@fortawesome/free-solid-svg-icons";
+import parse from "html-react-parser";
 
 //add them to the library so that we can call them later
 library.add(faStar);
@@ -67,15 +66,9 @@ class Waste extends Component {
         <div className="resultTitle">
           <h2>{result.title}</h2>
         </div>
-        <div className="resultBody">
-          {result.body
-            .split("&lt;")
-            .join("<")
-            .split("&gt;")
-            .join(">")
-            .split(/&amp;nbsp;/g)
-            .join(" ")}
-        </div>
+        {/* Since the data that we get back has HTML encoded text in the body, we need to parse it before displaying
+            we parse twice, once to decode and another time so we can display */}
+        <div className="resultBody">{parse(parse(result.body))}</div>
       </div>
     ));
 
