@@ -21,6 +21,8 @@ class Waste extends Component {
 
     this.state = {
       //keyword will store the user's input from the search bar
+      //one thing to keep in mind is that the DOM renders everytime we update a state,
+      //which means that when the user types in the input bar it
       keyword: "",
       //the raw JSON from the API
       apiData: [],
@@ -43,6 +45,10 @@ class Waste extends Component {
     this.setState({ keyword: event.target.value });
   };
 
+  submit = event => {
+    console.log(this.state.keyword);
+  };
+
   render() {
     return (
       <div className="wasteApp">
@@ -55,8 +61,18 @@ class Waste extends Component {
             className="searchBar"
             placeholder="Test"
             onChange={event => this.searchKeyword(event)}
+            onKeyDown={event => {
+              if (event.key === "Enter") {
+                this.submit();
+              }
+            }}
           />
-          <button type="button" className="searchBtn" id="searchBtn">
+          <button
+            type="button"
+            className="searchBtn"
+            id="searchBtn"
+            onClick={this.submit}
+          >
             <i className="fa fa-search fa-3x" />
           </button>
         </div>
