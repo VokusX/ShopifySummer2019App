@@ -39,11 +39,26 @@ class Waste extends Component {
       .then(rawData => this.setState({ rawData }));
   }
 
+  searchKeyword = event => {
+    this.setState({ keyword: event.target.value });
+  };
+
   render() {
     return (
       <div className="wasteApp">
         <div className="header">
           <h1>Toronto Waste Lookup</h1>
+        </div>
+        <div className="searchDiv">
+          <input
+            type="text"
+            className="searchBar"
+            placeholder="Test"
+            onChange={event => this.searchKeyword(event)}
+          />
+          <button type="button" className="searchBtn" id="searchBtn">
+            <i className="fa fa-search fa-3x" />
+          </button>
         </div>
       </div>
     );
