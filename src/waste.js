@@ -17,6 +17,7 @@ class Waste extends Component {
   //start by defining some variables in the constructor for the component
   constructor(props) {
     super(props);
+    this.submit = this.submit.bind(this);
 
     this.state = {
       keyword: "",
@@ -36,11 +37,11 @@ class Waste extends Component {
       .then(apiData => this.setState({ apiData }));
   }
 
-  updateKeyword = event => {
-    this.setState({ keyword: event.target.value });
-  };
+  updateKeyword(e) {
+    this.setState({ keyword: e.target.value });
+  }
 
-  submit = event => {
+  submit() {
     if (this.state.keyword !== "") {
       let filteredResults = [];
       let key = this.state.keyword;
@@ -51,11 +52,17 @@ class Waste extends Component {
       });
       this.setState({ results: filteredResults });
     } else this.setState({ results: [] });
-  };
+  }
 
   render() {
     const { results } = this.state;
-    const resultsMarkup = results.map(result => <div>{result.title}</div>);
+    const resultsMarkup = results.map((result, index) => (
+      <div key={index} className="resultTile">
+        <div className="favStar">
+          <FontAwesomeIcon size="1x" icon="star" color="#000000" />
+        </div>
+      </div>
+    ));
 
     return (
       <div className="wasteApp">
@@ -64,25 +71,32 @@ class Waste extends Component {
         </div>
 
         <div className="searchDiv">
-          <input
-            type="text"
-            className="searchBar"
-            placeholder="Test"
-            onChange={event => this.updateKeyword(event)}
-            onKeyDown={event => {
-              if (event.key === "Enter") {
-                this.submit();
-              }
+          <form
+            onSubmit={e => {
+              this.submit();
+              e.preventDefault();
             }}
-          />
-          <button
-            type="button"
-            className="searchBtn"
-            id="searchBtn"
-            onClick={this.submit}
           >
-            <i className="fa fa-search fa-3x" />
-          </button>
+            <input
+              type="text"
+              className="searchBar"
+              placeholder="Test"
+              onChange={e => this.updateKeyword(e)}
+              // onKeyDown={event => {
+              //   if (event.key === "Enter") {
+              //     this.submit();
+              //   }
+              // }}
+            />
+            <button
+              type="submit"
+              className="searchBtn"
+              id="searchBtn"
+              onClick={this.submit}
+            >
+              <i className="fa fa-search fa-3x" />
+            </button>
+          </form>
         </div>
         {resultsMarkup}
       </div>
