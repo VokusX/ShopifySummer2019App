@@ -7,8 +7,7 @@ import "./waste.css";
 //import Font Awesome so that we can get the search icon and the favourites icon
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 //add them to the library so that we can call them later
 library.add(faStar);
@@ -20,17 +19,9 @@ class Waste extends Component {
     super(props);
 
     this.state = {
-      //keyword will store the user's input from the search bar
-      //one thing to keep in mind is that the DOM renders everytime we update a state,
-      //which means that when the user types in the input bar it will re-render the DOM and
-      //make an API call with whatever they just typed, which we dont want, so we need another variable
-      //to track when they submit, and use that for searching
-      searchText: "",
       keyword: "",
-
-      //the raw JSON from the API
       apiData: [],
-      //favourites that the user chooses
+      results: [],
       fav: []
     };
   }
@@ -45,30 +36,27 @@ class Waste extends Component {
       .then(apiData => this.setState({ apiData }));
   }
 
-  updateSearchText = event => {
-    this.setState({ searchText: event.target.value });
+  updateKeyword = event => {
+    this.setState({ keyword: event.target.value });
   };
 
   submit = event => {
-    this.setState({ keyword: this.state.searchText });
-  };
-
-  //this function will get the results for us
-  results = event => {
-    //make sure we have a keyword to search by
     if (this.state.keyword !== "") {
-      let results = [];
+      let filteredResults = [];
       let key = this.state.keyword;
       this.state.apiData.forEach(function(item) {
         if (item.keywords.includes(key.toLowerCase())) {
-          results.push(item);
+          filteredResults.push(item);
         }
       });
-      console.log(this.state.keyword);
-    } else return <div />;
+      this.setState({ results: filteredResults });
+    } else this.setState({ results: [] });
   };
 
   render() {
+    const { results } = this.state;
+    const resultsMarkup = results.map(result => <div>{result.title}</div>);
+
     return (
       <div className="wasteApp">
         <div className="header">
@@ -80,7 +68,7 @@ class Waste extends Component {
             type="text"
             className="searchBar"
             placeholder="Test"
-            onChange={event => this.updateSearchText(event)}
+            onChange={event => this.updateKeyword(event)}
             onKeyDown={event => {
               if (event.key === "Enter") {
                 this.submit();
@@ -96,8 +84,7 @@ class Waste extends Component {
             <i className="fa fa-search fa-3x" />
           </button>
         </div>
-
-        <div className="resultsDiv">{this.results()}</div>
+        {resultsMarkup}
       </div>
     );
   }
