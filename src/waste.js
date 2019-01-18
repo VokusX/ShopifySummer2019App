@@ -22,8 +22,12 @@ class Waste extends Component {
     this.state = {
       //keyword will store the user's input from the search bar
       //one thing to keep in mind is that the DOM renders everytime we update a state,
-      //which means that when the user types in the input bar it
+      //which means that when the user types in the input bar it will re-render the DOM and
+      //make an API call with whatever they just typed, which we dont want, so we need another variable
+      //to track when they submit, and use that for searching
+      searchText: "",
       keyword: "",
+
       //the raw JSON from the API
       apiData: [],
       //favourites that the user chooses
@@ -38,15 +42,30 @@ class Waste extends Component {
       "https://secure.toronto.ca/cc_sr_v1/data/swm_waste_wizard_APR?limit=1000"
     )
       .then(res => res.json())
-      .then(rawData => this.setState({ rawData }));
+      .then(apiData => this.setState({ apiData }));
   }
 
-  searchKeyword = event => {
-    this.setState({ keyword: event.target.value });
+  updateSearchText = event => {
+    this.setState({ searchText: event.target.value });
   };
 
   submit = event => {
-    console.log(this.state.keyword);
+    this.setState({ keyword: this.state.searchText });
+  };
+
+  //this function will get the results for us
+  results = event => {
+    //make sure we have a keyword to search by
+    if (this.state.keyword !== "") {
+      let results = [];
+      let key = this.state.keyword;
+      this.state.apiData.forEach(function(item) {
+        if (item.keywords.includes(key.toLowerCase())) {
+          results.push(item);
+        }
+      });
+      console.log(this.state.keyword);
+    } else return <div />;
   };
 
   render() {
@@ -55,12 +74,13 @@ class Waste extends Component {
         <div className="header">
           <h1>Toronto Waste Lookup</h1>
         </div>
+
         <div className="searchDiv">
           <input
             type="text"
             className="searchBar"
             placeholder="Test"
-            onChange={event => this.searchKeyword(event)}
+            onChange={event => this.updateSearchText(event)}
             onKeyDown={event => {
               if (event.key === "Enter") {
                 this.submit();
@@ -76,6 +96,8 @@ class Waste extends Component {
             <i className="fa fa-search fa-3x" />
           </button>
         </div>
+
+        <div className="resultsDiv">{this.results()}</div>
       </div>
     );
   }
