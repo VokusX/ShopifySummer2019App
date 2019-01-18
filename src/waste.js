@@ -61,6 +61,18 @@ class Waste extends Component {
         <div className="favStar">
           <FontAwesomeIcon size="1x" icon="star" color="#000000" />
         </div>
+        <div className="resultTitle">
+          <h2>{result.title}</h2>
+        </div>
+        <div className="resultBody">
+          {result.body
+            .split("&lt;")
+            .join("<")
+            .split("&gt;")
+            .join(">")
+            .split(/&amp;nbsp;/g)
+            .join(" ")}
+        </div>
       </div>
     ));
 
@@ -82,11 +94,6 @@ class Waste extends Component {
               className="searchBar"
               placeholder="Test"
               onChange={e => this.updateKeyword(e)}
-              // onKeyDown={event => {
-              //   if (event.key === "Enter") {
-              //     this.submit();
-              //   }
-              // }}
             />
             <button
               type="submit"
