@@ -42,16 +42,19 @@ class Waste extends Component {
   }
 
   submit() {
-    if (this.state.keyword !== "") {
-      let filteredResults = [];
-      let key = this.state.keyword;
-      this.state.apiData.forEach(function(item) {
-        if (item.keywords.includes(key.toLowerCase())) {
-          filteredResults.push(item);
-        }
-      });
-      this.setState({ results: filteredResults });
-    } else this.setState({ results: [] });
+    const { keyword, apiData } = this.state;
+
+    if (keyword === "") {
+      this.setState({ results: [] });
+      return;
+    }
+
+    const filteredResults = apiData.filter(result => {
+      const lowercased = result.keywords.toLowerCase();
+      return lowercased.includes(keyword.toLowerCase());
+    });
+
+    this.setState({ results: filteredResults });
   }
 
   render() {
