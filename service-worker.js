@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/shopify/precache-manifest.6caa38a728f3819fe8447a5ec08964c2.js"
+  "/ShopifySummer2019App/precache-manifest.dddd4e3e4ebab286d1d00f7968bac33d.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/shopify/index.html", {
+workbox.routing.registerNavigationRoute("/ShopifySummer2019App/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
