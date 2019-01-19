@@ -78,6 +78,32 @@ class Waste extends Component {
     this.setState({ favourites: filteredResults });
   }
 
+  favouriteBar() {
+    const { favourites } = this.state;
+
+    if (favourites.length > 0) {
+      return (
+        <div className="bottomStickyContainer">
+          <h2>Favourites</h2>
+          {favourites.map((result, index) => (
+            <div key={index} className="favTile">
+              <div className="bottomFavStar">
+                <FontAwesomeIcon
+                  size="1x"
+                  icon="star"
+                  color={this.isFavourited(result)}
+                  onClick={() => this.updateFavourite(result)}
+                />
+              </div>
+              <div className="favResultTitle">{result.title}</div>
+              <div className="favResultBody">{parse(parse(result.body))}</div>
+            </div>
+          ))}
+        </div>
+      );
+    } else return <div />;
+  }
+
   render() {
     const { results, favourites, apiData } = this.state;
     const resultsMarkup = results.map((result, index) => (
@@ -94,24 +120,6 @@ class Waste extends Component {
         <div className="resultBody">{parse(parse(result.body))}</div>
       </div>
     ));
-
-    let favouritesMarkup;
-    if (favourites.length > 0) {
-      favouritesMarkup = favourites.map((result, index) => (
-        <div key={index} className="favTile">
-          <div className="bottomFavStar">
-            <FontAwesomeIcon
-              size="1x"
-              icon="star"
-              color={this.isFavourited(result)}
-              onClick={() => this.updateFavourite(result)}
-            />
-          </div>
-          <div className="favResultTitle">{result.title}</div>
-          <div className="favResultBody">{parse(parse(result.body))}</div>
-        </div>
-      ));
-    } else favouritesMarkup = <div />;
 
     return (
       <div className="wasteApp">
@@ -143,7 +151,9 @@ class Waste extends Component {
           </form>
         </div>
         {resultsMarkup}
-        {favouritesMarkup}
+        {/* {favouritesTitle}
+        {favouritesMarkup} */}
+        {this.favouriteBar()}
       </div>
     );
   }

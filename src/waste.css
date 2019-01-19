@@ -83,14 +83,10 @@ li {
 }
 
 .favTile {
-  position: -webkit-sticky;
-  position: sticky;
-  bottom: 0rem;
   display: flex;
   font-size: 22px;
   width: 100%;
   min-height: 100px;
-  background-color: #f7fefa;
 }
 
 .bottomFavStar {
@@ -107,4 +103,32 @@ li {
   margin-top: -20px;
   width: 58.5%;
   margin-right: 50px;
+}
+
+.favouriteHeader {
+  background-color: #f7fefa;
+  color: #23975e;
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0rem;
+  display: flex;
+  font-size: 22px;
+}
+
+h2 {
+  color: #23975e;
+  position: relative;
+  margin: 20px;
+}
+
+.bottomStickyContainer {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0rem;
+  display: flex;
+  font-size: 22px;
+  width: 100%;
+  min-height: 100px;
+  background-color: #f7fefa;
+  flex-direction: column;
 }
