@@ -56,38 +56,38 @@ class Waste extends Component {
     this.setState({ results: filteredResults });
   }
 
-  isFavourited(title) {
-    const { favourites } = this.state;
+  isFavourited(item) {
+    const { favourites, apiData } = this.state;
 
-    if (favourites.includes(title)) {
+    if (favourites.includes(item)) {
       return "#23975e";
     } else return "#bdbdbd";
   }
 
-  updateFavourite(title) {
-    const { favourites } = this.state;
+  updateFavourite(item) {
+    const { favourites, apiData } = this.state;
 
     let filteredResults = favourites;
 
-    if (favourites.includes(title)) {
+    if (favourites.includes(item)) {
       filteredResults = favourites.filter(result => {
-        return title !== result;
+        return item !== result;
       });
-    } else filteredResults.push(title);
+    } else filteredResults.push(item);
 
     this.setState({ favourites: filteredResults });
   }
 
   render() {
-    const { results, favourites } = this.state;
+    const { results, favourites, apiData } = this.state;
     const resultsMarkup = results.map((result, index) => (
       <div key={index} className="resultTile">
         <div className="favStar">
           <FontAwesomeIcon
             size="1x"
             icon="star"
-            color={this.isFavourited(result.title)}
-            onClick={() => this.updateFavourite(result.title)}
+            color={this.isFavourited(result)}
+            onClick={() => this.updateFavourite(result)}
           />
         </div>
         <div className="resultTitle">{result.title}</div>
@@ -95,7 +95,23 @@ class Waste extends Component {
       </div>
     ));
 
-    const favouritesMarkup = <div />;
+    let favouritesMarkup;
+    if (favourites.length > 0) {
+      favouritesMarkup = favourites.map((result, index) => (
+        <div key={index} className="favTile">
+          <div className="bottomFavStar">
+            <FontAwesomeIcon
+              size="1x"
+              icon="star"
+              color={this.isFavourited(result)}
+              onClick={() => this.updateFavourite(result)}
+            />
+          </div>
+          <div className="favResultTitle">{result.title}</div>
+          <div className="favResultBody">{parse(parse(result.body))}</div>
+        </div>
+      ));
+    } else favouritesMarkup = <div />;
 
     return (
       <div className="wasteApp">
@@ -113,7 +129,7 @@ class Waste extends Component {
             <input
               type="text"
               className="searchBar"
-              placeholder="Test"
+              placeholder="Enter a search term"
               onChange={e => this.updateKeyword(e)}
             />
             <button

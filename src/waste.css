@@ -81,3 +81,30 @@ h1 {
 li {
   margin-bottom: 20px;
 }
+
+.favTile {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0rem;
+  display: flex;
+  font-size: 22px;
+  width: 100%;
+  min-height: 100px;
+  background-color: #f7fefa;
+}
+
+.bottomFavStar {
+  margin-left: 20px;
+  width: 10px;
+}
+
+.favResultTitle {
+  margin-left: 25px;
+  width: 40%;
+}
+
+.favResultBody {
+  margin-top: -20px;
+  width: 58.5%;
+  margin-right: 50px;
+}
