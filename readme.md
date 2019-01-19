@@ -1,7 +1,7 @@
 # Web Engineer Challenge - Summer 2019
 
 The goal of this challenge was to build a web app to search for waste items using the Toronto Waste Wizard database, and save frequently used ones.
-The live hosted version of the app can be found at http://voicu.me/ShopifySummer2019App/index.html.
+The live hosted version of the app can be found at http://voicu.me/ShopifySummer2019App/.
 
 ## Instructions
 
