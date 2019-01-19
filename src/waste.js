@@ -61,11 +61,9 @@ class Waste extends Component {
     const resultsMarkup = results.map((result, index) => (
       <div key={index} className="resultTile">
         <div className="favStar">
-          <FontAwesomeIcon size="1x" icon="star" color="#000000" />
+          <FontAwesomeIcon size="1x" icon="star" color="#bdbdbd" />
         </div>
-        <div className="resultTitle">
-          <h2>{result.title}</h2>
-        </div>
+        <div className="resultTitle">{result.title}</div>
         {/* Since the data that we get back has HTML encoded text in the body, we need to parse it before displaying
             we parse twice, once to decode and another time so we can display */}
         <div className="resultBody">{parse(parse(result.body))}</div>

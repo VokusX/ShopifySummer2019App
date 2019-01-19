@@ -53,3 +53,29 @@ h1 {
   /* Sublte shadow for the button */
   box-shadow: 0 3px 2.5px -2.5px gray;
 }
+
+.resultTile {
+  display: flex;
+  font-size: 22px;
+  width: 100%;
+  margin: 20px;
+  padding-top: 20px;
+}
+
+.favStar {
+  width: 10px;
+}
+
+.resultTitle {
+  margin-left: 25px;
+  width: 40%;
+}
+
+.resultBody {
+  margin-top: -20px;
+  width: 60%;
+}
+
+li {
+  margin-bottom: 25px;
+}
