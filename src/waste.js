@@ -43,11 +43,13 @@ class Waste extends Component {
   submit() {
     const { keyword, apiData } = this.state;
 
+    //clear the results if the input is empty
     if (keyword === "") {
       this.setState({ results: [] });
       return;
     }
 
+    //otherwise find it in the list of keywords, and add it to the state results variable
     const filteredResults = apiData.filter(result => {
       const lowercased = result.keywords.toLowerCase();
       return lowercased.includes(keyword.toLowerCase());
@@ -57,7 +59,7 @@ class Waste extends Component {
   }
 
   isFavourited(item) {
-    const { favourites, apiData } = this.state;
+    const { favourites } = this.state;
 
     if (favourites.includes(item)) {
       return "#23975e";
@@ -65,7 +67,7 @@ class Waste extends Component {
   }
 
   updateFavourite(item) {
-    const { favourites, apiData } = this.state;
+    const { favourites } = this.state;
 
     let filteredResults = favourites;
 
@@ -105,7 +107,7 @@ class Waste extends Component {
   }
 
   render() {
-    const { results, favourites, apiData } = this.state;
+    const { results } = this.state;
     const resultsMarkup = results.map((result, index) => (
       <div key={index} className="resultTile">
         <div className="favStar">
@@ -151,8 +153,6 @@ class Waste extends Component {
           </form>
         </div>
         {resultsMarkup}
-        {/* {favouritesTitle}
-        {favouritesMarkup} */}
         {this.favouriteBar()}
       </div>
     );
