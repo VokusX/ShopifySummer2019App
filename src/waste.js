@@ -22,7 +22,7 @@ class Waste extends Component {
       keyword: "",
       apiData: [],
       results: [],
-      fav: []
+      favourites: []
     };
   }
 
@@ -56,19 +56,46 @@ class Waste extends Component {
     this.setState({ results: filteredResults });
   }
 
+  isFavourited(title) {
+    const { favourites } = this.state;
+
+    if (favourites.includes(title)) {
+      return "#23975e";
+    } else return "#bdbdbd";
+  }
+
+  updateFavourite(title) {
+    const { favourites } = this.state;
+
+    let filteredResults = favourites;
+
+    if (favourites.includes(title)) {
+      filteredResults = favourites.filter(result => {
+        return title !== result;
+      });
+    } else filteredResults.push(title);
+
+    this.setState({ favourites: filteredResults });
+  }
+
   render() {
-    const { results } = this.state;
+    const { results, favourites } = this.state;
     const resultsMarkup = results.map((result, index) => (
       <div key={index} className="resultTile">
         <div className="favStar">
-          <FontAwesomeIcon size="1x" icon="star" color="#bdbdbd" />
+          <FontAwesomeIcon
+            size="1x"
+            icon="star"
+            color={this.isFavourited(result.title)}
+            onClick={() => this.updateFavourite(result.title)}
+          />
         </div>
         <div className="resultTitle">{result.title}</div>
-        {/* Since the data that we get back has HTML encoded text in the body, we need to parse it before displaying
-            we parse twice, once to decode and another time so we can display */}
         <div className="resultBody">{parse(parse(result.body))}</div>
       </div>
     ));
+
+    const favouritesMarkup = <div />;
 
     return (
       <div className="wasteApp">
@@ -100,6 +127,7 @@ class Waste extends Component {
           </form>
         </div>
         {resultsMarkup}
+        {favouritesMarkup}
       </div>
     );
   }

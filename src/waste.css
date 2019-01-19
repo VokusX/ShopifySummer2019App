@@ -60,6 +60,7 @@ h1 {
   width: 100%;
   margin: 20px;
   padding-top: 20px;
+  min-height: 100px;
 }
 
 .favStar {
@@ -74,8 +75,9 @@ h1 {
 .resultBody {
   margin-top: -20px;
   width: 60%;
+  margin-right: 50px;
 }
 
 li {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
