@@ -69,18 +69,18 @@ class Waste extends Component {
   updateFavourite(item) {
     const { favourites } = this.state;
 
-    let filteredResults = favourites;
+    let favouritedResults = favourites;
 
     if (favourites.includes(item)) {
-      filteredResults = favourites.filter(result => {
+      favouritedResults = favourites.filter(result => {
         return item !== result;
       });
-    } else filteredResults.push(item);
+    } else favouritedResults.push(item);
 
-    this.setState({ favourites: filteredResults });
+    this.setState({ favourites: favouritedResults });
   }
 
-  favouriteBar() {
+  renderFavouriteBar() {
     const { favourites } = this.state;
 
     if (favourites.length > 0) {
@@ -162,7 +162,7 @@ class Waste extends Component {
             </form>
           </div>
           {resultsMarkup}
-          {this.favouriteBar()}
+          {this.renderFavouriteBar()}
         </div>
       );
     }
