@@ -54,7 +54,7 @@ class Waste extends Component {
       const lowercased = result.keywords.toLowerCase();
       return (
         lowercased.includes(keyword.toLowerCase()) ||
-        result.title.includes(keyword.toLowerCase())
+        result.title.toLowerCase().includes(keyword.toLowerCase())
       );
     });
 
