@@ -8,17 +8,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faSearch } from "@fortawesome/free-solid-svg-icons";
 import parse from "html-react-parser";
 
-//add them to the library so that we can call them later
 library.add(faStar);
 library.add(faSearch);
 
 class Waste extends Component {
-  //start by defining some variables in the constructor for the component
   constructor(props) {
     super(props);
-    this.submit = this.submit.bind(this);
+    this.handleSubmitAction = this.handleSubmitAction.bind(this);
 
     this.state = {
+      loading: true,
       keyword: "",
       apiData: [],
       results: [],
@@ -26,30 +25,28 @@ class Waste extends Component {
     };
   }
 
-  //componentDidMount() is invoked once the component is initialized, but before its rendered, so we should make our API call here
-  //the function takes the data from the API and converts it to a JSON object to be put into the array we created
+  // componentDidMount() is invoked once the component is initialized, but before its rendered, so we should make our API call here
+  // The function takes the data from the API and converts it to a JSON object to be put into the array we created
   componentDidMount() {
     fetch(
       "https://secure.toronto.ca/cc_sr_v1/data/swm_waste_wizard_APR?limit=1000"
     )
       .then(res => res.json())
-      .then(apiData => this.setState({ apiData }));
+      .then(apiData => this.setState({ apiData, loading: false }));
   }
 
   updateKeyword(e) {
     this.setState({ keyword: e.target.value });
   }
 
-  submit() {
+  handleSubmitAction() {
     const { keyword, apiData } = this.state;
 
-    //clear the results if the input is empty
     if (keyword === "") {
       this.setState({ results: [] });
       return;
     }
 
-    //otherwise find it in the list of keywords or title, and add it to the state results variable
     const filteredResults = apiData.filter(result => {
       const lowercased = result.keywords.toLowerCase();
       return (
@@ -110,7 +107,7 @@ class Waste extends Component {
   }
 
   render() {
-    const { results } = this.state;
+    const { results, loading } = this.state;
     const resultsMarkup = results.map((result, index) => (
       <div key={index} className="resultTile">
         <div className="favStar">
@@ -125,40 +122,48 @@ class Waste extends Component {
         <div className="resultBody">{parse(parse(result.body))}</div>
       </div>
     ));
-
-    return (
-      <div className="wasteApp">
+    if (loading) {
+      return (
         <div className="header">
           <h1>Toronto Waste Lookup</h1>
+          <div className="loading">Loading...</div>
         </div>
+      );
+    } else {
+      return (
+        <div className="wasteApp">
+          <div className="header">
+            <h1>Toronto Waste Lookup</h1>
+          </div>
 
-        <div className="searchDiv">
-          <form
-            onSubmit={e => {
-              this.submit();
-              e.preventDefault();
-            }}
-          >
-            <input
-              type="text"
-              className="searchBar"
-              placeholder="Enter a search term"
-              onChange={e => this.updateKeyword(e)}
-            />
-            <button
-              type="submit"
-              className="searchBtn"
-              id="searchBtn"
-              onClick={this.submit}
+          <div className="searchDiv">
+            <form
+              onSubmit={e => {
+                this.handleSubmitAction();
+                e.preventDefault();
+              }}
             >
-              <i className="fa fa-search fa-3x" />
-            </button>
-          </form>
+              <input
+                type="text"
+                className="searchBar"
+                placeholder="Enter a search term"
+                onChange={e => this.updateKeyword(e)}
+              />
+              <button
+                type="submit"
+                className="searchBtn"
+                id="searchBtn"
+                onClick={this.handleSubmitAction}
+              >
+                <i className="fa fa-search fa-3x" />
+              </button>
+            </form>
+          </div>
+          {resultsMarkup}
+          {this.favouriteBar()}
         </div>
-        {resultsMarkup}
-        {this.favouriteBar()}
-      </div>
-    );
+      );
+    }
   }
 }
 
