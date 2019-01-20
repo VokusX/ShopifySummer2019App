@@ -108,6 +108,7 @@ class Waste extends Component {
 
   render() {
     const { results, loading } = this.state;
+
     const resultsMarkup = results.map((result, index) => (
       <div key={index} className="resultTile">
         <div className="favStar">
@@ -122,10 +123,17 @@ class Waste extends Component {
         <div className="resultBody">{parse(parse(result.body))}</div>
       </div>
     ));
+
+    const headerMarkup = (
+      <div className="header">
+        <h1>Toronto Waste Lookup</h1>
+      </div>
+    );
+
     if (loading) {
       return (
-        <div className="header">
-          <h1>Toronto Waste Lookup</h1>
+        <div className="wasteApp">
+          {headerMarkup}
           <div className="loading">
             <h3>Loading...</h3>
           </div>
@@ -134,33 +142,30 @@ class Waste extends Component {
     } else {
       return (
         <div className="wasteApp">
-          <div className="header">
-            <h1>Toronto Waste Lookup</h1>
-          </div>
-
-          <div className="searchDiv">
-            <form
-              onSubmit={e => {
-                this.handleSubmitAction();
-                e.preventDefault();
-              }}
+          {headerMarkup}
+          <form
+            className="searchDiv"
+            onSubmit={e => {
+              this.handleSubmitAction();
+              e.preventDefault();
+            }}
+          >
+            <input
+              type="text"
+              className="searchBar"
+              placeholder="Enter a search term"
+              onChange={e => this.updateKeyword(e)}
+            />
+            <button
+              type="submit"
+              className="searchBtn"
+              id="searchBtn"
+              onClick={this.handleSubmitAction}
             >
-              <input
-                type="text"
-                className="searchBar"
-                placeholder="Enter a search term"
-                onChange={e => this.updateKeyword(e)}
-              />
-              <button
-                type="submit"
-                className="searchBtn"
-                id="searchBtn"
-                onClick={this.handleSubmitAction}
-              >
-                <i className="fa fa-search fa-3x" />
-              </button>
-            </form>
-          </div>
+              <i className="fa fa-search fa-3x" />
+            </button>
+          </form>
+
           {resultsMarkup}
           {this.renderFavouriteBar()}
         </div>
