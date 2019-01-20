@@ -88,7 +88,7 @@ class Waste extends Component {
       return (
         <div className="bottomStickyContainer">
           <h2>Favourites</h2>
-          {favourites.map((result, index) => (
+          {favourites.map(result => (
             <Result
               isFavourited={this.isFavourite(result)}
               onClick={() => {
@@ -123,7 +123,7 @@ class Waste extends Component {
       </div>
     );
 
-    if (loading) {
+    if (loading)
       return (
         <div>
           {headerMarkup}
@@ -132,38 +132,37 @@ class Waste extends Component {
           </div>
         </div>
       );
-    } else {
-      return (
-        <div>
-          {headerMarkup}
-          <form
-            className="searchDiv"
-            onSubmit={e => {
-              this.handleSubmitAction();
-              e.preventDefault();
-            }}
-          >
-            <input
-              type="text"
-              className="searchBar"
-              placeholder="Enter a search term"
-              onChange={e => this.updateKeyword(e)}
-            />
-            <button
-              type="submit"
-              className="searchBtn"
-              id="searchBtn"
-              onClick={this.handleSubmitAction}
-            >
-              <i className="fa fa-search fa-3x" />
-            </button>
-          </form>
 
-          {resultsMarkup}
-          {this.renderFavouriteBar()}
-        </div>
-      );
-    }
+    return (
+      <div>
+        {headerMarkup}
+        <form
+          className="searchDiv"
+          onSubmit={e => {
+            this.handleSubmitAction();
+            e.preventDefault();
+          }}
+        >
+          <input
+            type="text"
+            className="searchBar"
+            placeholder="Enter a search term"
+            onChange={e => this.updateKeyword(e)}
+          />
+          <button
+            type="submit"
+            className="searchBtn"
+            id="searchBtn"
+            onClick={this.handleSubmitAction}
+          >
+            <i className="fa fa-search fa-3x" />
+          </button>
+        </form>
+
+        {resultsMarkup}
+        {this.renderFavouriteBar()}
+      </div>
+    );
   }
 }
 
