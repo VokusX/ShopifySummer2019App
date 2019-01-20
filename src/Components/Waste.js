@@ -2,7 +2,8 @@
 // This is the main file in charge of handling all of the logic and processes for the app.
 
 import React, { Component } from "react";
-import "./waste.css";
+import "./Waste.css";
+import Result from "./Results.js";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faSearch } from "@fortawesome/free-solid-svg-icons";

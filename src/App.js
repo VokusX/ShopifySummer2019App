@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import "./waste.js";
-import Waste from "./waste.js";
+import Waste from "./Components/Waste.js";
 
 class App extends Component {
   render() {
