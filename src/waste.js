@@ -58,7 +58,7 @@ class Waste extends Component {
     this.setState({ results: filteredResults });
   }
 
-  isFavourited(item) {
+  getFavouriteButtonColor(item) {
     const { favourites } = this.state;
 
     if (favourites.includes(item)) {
@@ -93,7 +93,7 @@ class Waste extends Component {
                 <FontAwesomeIcon
                   size="1x"
                   icon="star"
-                  color={this.isFavourited(result)}
+                  color={this.getFavouriteButtonColor(result)}
                   onClick={() => this.updateFavourite(result)}
                 />
               </div>
@@ -114,7 +114,7 @@ class Waste extends Component {
           <FontAwesomeIcon
             size="1x"
             icon="star"
-            color={this.isFavourited(result)}
+            color={this.getFavouriteButtonColor(result)}
             onClick={() => this.updateFavourite(result)}
           />
         </div>

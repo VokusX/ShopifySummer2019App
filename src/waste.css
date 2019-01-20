@@ -138,13 +138,12 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 5em;
-  font-size: 50px;
-  font-weight: 200;
+  margin-top: 3em;
 }
 
 h3 {
   background: linear-gradient(to right, #1d5994, #23975e);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  font-size: 50px;
 }
