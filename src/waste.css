@@ -142,3 +142,9 @@ h2 {
   font-size: 50px;
   font-weight: 200;
 }
+
+h3 {
+  background: linear-gradient(to right, #1d5994, #23975e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

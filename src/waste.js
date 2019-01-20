@@ -126,7 +126,9 @@ class Waste extends Component {
       return (
         <div className="header">
           <h1>Toronto Waste Lookup</h1>
-          <div className="loading">Loading...</div>
+          <div className="loading">
+            <h3>Loading...</h3>
+          </div>
         </div>
       );
     } else {
