@@ -10,10 +10,6 @@ body {
   overflow-x: hidden;
 }
 
-.wasteApp {
-  background-color: #ffffff;
-}
-
 .header {
   display: flex;
   justify-content: center;
@@ -42,6 +38,7 @@ h1 {
   align-content: stretch;
   height: 70px;
   margin-right: 20px;
+  padding-bottom: 20px;
 }
 
 .searchBar {
@@ -69,58 +66,6 @@ h1 {
   flex: 0 1 70px;
 }
 
-.resultTile {
-  display: flex;
-  font-size: 22px;
-  width: 100%;
-  margin: 20px;
-  padding-top: 20px;
-  min-height: 100px;
-}
-
-.favStar {
-  width: 10px;
-}
-
-.resultTitle {
-  margin-left: 25px;
-  width: 40%;
-}
-
-.resultBody {
-  margin-top: -20px;
-  width: 60%;
-  margin-right: 50px;
-}
-
-li {
-  margin-bottom: 20px;
-}
-
-.favTile {
-  display: flex;
-  font-size: 22px;
-  width: 100%;
-  min-height: 100px;
-  margin-top: 20px;
-}
-
-.bottomFavStar {
-  margin-left: 20px;
-  width: 10px;
-}
-
-.favResultTitle {
-  margin-left: 25px;
-  width: 40%;
-}
-
-.favResultBody {
-  margin-top: -20px;
-  width: 58.5%;
-  margin-right: 50px;
-}
-
 .favouriteHeader {
   background-color: #f7fefa;
   color: #23975e;
@@ -134,7 +79,8 @@ li {
 h2 {
   color: #23975e;
   position: relative;
-  margin: 20px;
+  margin-left: 20px;
+  font-weight: 800;
 }
 
 .bottomStickyContainer {

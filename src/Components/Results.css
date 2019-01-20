@@ -1,0 +1,34 @@
+.resultTile {
+  display: flex;
+  font-size: 22px;
+  width: 100%;
+  margin-left: 20px;
+  min-height: 100px;
+}
+
+.favStar {
+  width: 10px;
+}
+
+.resultTitle {
+  margin-left: 25px;
+  width: 40%;
+}
+
+.resultBody {
+  margin-top: -20px;
+  width: 60%;
+  margin-right: 50px;
+}
+
+li {
+  margin-bottom: 20px;
+}
+
+.favTile {
+  display: flex;
+  font-size: 22px;
+  width: 100%;
+  min-height: 100px;
+  margin-top: 20px;
+}

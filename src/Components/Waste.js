@@ -3,7 +3,7 @@
 
 import React, { Component } from "react";
 import "./Waste.css";
-import Result from "./Results.js";
+import Result from "./Result.js";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -59,12 +59,12 @@ class Waste extends Component {
     this.setState({ results: filteredResults });
   }
 
-  getFavouriteButtonColor(item) {
+  isFavourite(item) {
     const { favourites } = this.state;
 
     if (favourites.includes(item)) {
-      return "#23975e";
-    } else return "#bdbdbd";
+      return true;
+    } else return false;
   }
 
   updateFavourite(item) {
@@ -89,18 +89,14 @@ class Waste extends Component {
         <div className="bottomStickyContainer">
           <h2>Favourites</h2>
           {favourites.map((result, index) => (
-            <div key={index} className="favTile">
-              <div className="bottomFavStar">
-                <FontAwesomeIcon
-                  size="1x"
-                  icon="star"
-                  color={this.getFavouriteButtonColor(result)}
-                  onClick={() => this.updateFavourite(result)}
-                />
-              </div>
-              <div className="favResultTitle">{result.title}</div>
-              <div className="favResultBody">{parse(parse(result.body))}</div>
-            </div>
+            <Result
+              isFavourited={this.isFavourite(result)}
+              onClick={() => {
+                this.updateFavourite(result);
+              }}
+              title={result.title}
+              body={result.body}
+            />
           ))}
         </div>
       );
@@ -110,19 +106,15 @@ class Waste extends Component {
   render() {
     const { results, loading } = this.state;
 
-    const resultsMarkup = results.map((result, index) => (
-      <div key={index} className="resultTile">
-        <div className="favStar">
-          <FontAwesomeIcon
-            size="1x"
-            icon="star"
-            color={this.getFavouriteButtonColor(result)}
-            onClick={() => this.updateFavourite(result)}
-          />
-        </div>
-        <div className="resultTitle">{result.title}</div>
-        <div className="resultBody">{parse(parse(result.body))}</div>
-      </div>
+    const resultsMarkup = results.map(result => (
+      <Result
+        isFavourited={this.isFavourite(result)}
+        onClick={() => {
+          this.updateFavourite(result);
+        }}
+        title={result.title}
+        body={result.body}
+      />
     ));
 
     const headerMarkup = (
@@ -133,7 +125,7 @@ class Waste extends Component {
 
     if (loading) {
       return (
-        <div className="wasteApp">
+        <div>
           {headerMarkup}
           <div className="loading">
             <h3>Loading...</h3>
@@ -142,7 +134,7 @@ class Waste extends Component {
       );
     } else {
       return (
-        <div className="wasteApp">
+        <div>
           {headerMarkup}
           <form
             className="searchDiv"
