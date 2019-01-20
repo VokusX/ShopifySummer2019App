@@ -49,10 +49,13 @@ class Waste extends Component {
       return;
     }
 
-    //otherwise find it in the list of keywords, and add it to the state results variable
+    //otherwise find it in the list of keywords or title, and add it to the state results variable
     const filteredResults = apiData.filter(result => {
       const lowercased = result.keywords.toLowerCase();
-      return lowercased.includes(keyword.toLowerCase());
+      return (
+        lowercased.includes(keyword.toLowerCase()) ||
+        result.title.includes(keyword.toLowerCase())
+      );
     });
 
     this.setState({ results: filteredResults });
